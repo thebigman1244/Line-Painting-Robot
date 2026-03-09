@@ -1,2 +1,2 @@
 # Line-Painting-Robot
-A project to build A robot mainly for Baseball Fields that is less expensive than actual robots which are upwards of 40 thousand dollars. 
+A project to build A robot that can paint the lines of sports fields for less than the cost of an actual commerical line painting robot.
