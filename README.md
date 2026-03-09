@@ -201,7 +201,7 @@ The robot is capable of driving and maintaining heading using sensor feedback.
 
 About the Author
 
-This project was created by Bryce Gilmartin, a 14-year-old student interested in robotics, engineering, and space science.
+This project was created by Bryce Gilmartin, a 14-year-old kid.
 
 The goal of this project was to learn more about robotics, embedded systems, and navigation while building something practical from scratch.
 
