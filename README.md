@@ -5,15 +5,13 @@ This project is an autonomous robot designed to paint straight athletic field li
 
 The robot is powered by an ESP32 microcontroller and uses dual hub motors with independent controllers to achieve differential steering. A built-in WiFi interface allows a user to connect to the robot from a phone or computer and start the robot after placing it at the correct starting position.
 
-The goal of the project was to design and build a practical robotics system that solves a real-world problem while learning about robotics, embedded programming, electronics, and autonomous navigation.
+The goal of the project was to design and build a practical robotics system that can solve the annoying task of manually painting the lines on a baseball field or sports field in general and also to make it cheaper then a commerical one.
 
-The robot was designed and built from individual components rather than a robotics kit in order to better understand how each part of the system works.
 
 Project Goals
 
 The main goals of this project were to design and build a fully functional autonomous robot and create a system capable of driving in a straight line using sensor feedback.
 
-Another goal was to learn how GPS navigation works in robotics and integrate multiple sensors into a single control system.
 
 The project also focuses on building a simple wireless control interface and documenting the entire engineering process from start to finish.
 
@@ -152,11 +150,15 @@ Below is a list of the major components used in this project. Links will be adde
 
 Electronics
 
-ESP32 development board
-u-blox ZED-F9P GNSS receiver
+ESP32 development board https://www.amazon.com/ELEGOO-ESP-WROOM-32-Development-Bluetooth-Microcontroller/dp/B0D8T53CQ5/ref=sr_1_3?dib=eyJ2IjoiMSJ9.0mMutUw27FQh3oBplnQp1W-j79c1kFkqAhjtYy2WbRDceGeIFW8zDhzGIBDP64tt_MPF-F7llygbb1i9VdwfIIKkt5EgEM20Jfw_vuUlzLLey0sZQGBEQp_43hHyZ5bB192qxpbnWD3Fn68eelh4dzABZUXRC6oRmted5OnREE1YZqjQOT3pPFXLSTmxjttgHPVNT1Oxc8BO1wZDEpdLBv5816-crY8qR0c4LFmluS8N1K-72KhGUj0eTZGaeiriOLRC1i-SbLIitTckrje_a1Cb64lBdPrPI8xzsd1NDl4.rnB65lNcputYtCMz0BASFEZvZuFks9MasTFjgwToBBI&dib_tag=se&keywords=esp32&qid=1773080585&s=electronics&sr=1-3
+u-blox ZED-F9P GNSS receiver https://www.amazon.com/SparkFun-GPS-RTK2-Board-ZED-F9P-Qwiic/dp/B07NBPNWNZ/ref=sr_1_1?crid=3PQ58QY6EN2N5&dib=eyJ2IjoiMSJ9.z1Abcsi_nd3n9YQYycycs2fFeO5Q448aYvtKq_QBcK6yDNsyFRm1wVPd4AyVqHciaSE0upOIkhfzq2q9qx25IO3v85XEoli1vh6OwemL0FsPJIIv-Otn3Kmm8i65uCh6mVL9kqtnvBECML5GfT6Lyskq_Nd3xdJy-LU5v9F_vs8r5fYkVdHNz7n4Gcl7H77bc66CHwjMS-FGq31j3guAk_nDLxoYGMOi3WZN9paK6H7Edff7OYN07gUxBVtY8ATWmcwn3xc2sCknW0dq1KrX5mlkDafgKaQ0BO9YmcSUqNY.5fE7pLzpEsekCYnvj1zfPcVGTAgMYuL2jXAiPC5qcGk&dib_tag=se&keywords=Zed+f9p&qid=1773080674&sprefix=zed+f9p%2Caps%2C168&sr=8-1
+
 BMM150 magnetometer module
+
 2 relay modules for motor reverse control
+
 DC-DC voltage converters
+
 Wiring and connectors
 
 Drive System
@@ -171,7 +173,7 @@ Robot frame
 Mounting brackets
 Electronics enclosure
 
-Future Hardware
+Hardware
 
 Water-based paint pump
 Spray nozzle system
@@ -179,9 +181,6 @@ Paint reservoir
 
 Future Improvements
 
-Several improvements are planned for future versions of the robot.
-
-A paint sprayer system will allow the robot to automatically paint lines while driving.
 
 Adding RTK GPS corrections could improve positioning accuracy from a few feet to a few centimeters.
 
