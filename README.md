@@ -10,12 +10,8 @@ The goal of the project was to design and build a practical robotics system that
 
 Project Goals
 
-The main goals of this project were to design and build a fully functional autonomous robot and create a system capable of driving in a straight line using sensor feedback.
+The main goals of this project were to design and build a fully functional autonomous robot and create a system capable of driving in a straight line using sensor feedback. And to also make a robot for less than $2000.
 
-
-The project also focuses on building a simple wireless control interface and documenting the entire engineering process from start to finish.
-
-Overall, this project focuses on creating a practical autonomous system while learning the fundamentals of robotics and navigation.
 
 Key Features
 Differential Drive System
@@ -30,7 +26,6 @@ Both motors running at the same speed allow the robot to drive straight.
 If the left motor runs slower, the robot turns left.
 If the right motor runs slower, the robot turns right.
 
-This steering method is commonly used in autonomous robots and mobile robotics platforms.
 
 GPS Navigation
 
@@ -45,9 +40,9 @@ If you feel accuracy lacks then you can add a RTK station which means buying a s
 
 Compass Heading Control
 
-A magnetometer measures the robot's heading relative to Earth's magnetic field.
+A magnetometer measures the robot's heading so it can have real time corrections incase of drift.
 
-This is important because GPS alone cannot keep a robot moving in a perfectly straight direction. The compass provides heading feedback so the robot can correct its steering while driving.
+This is important because GPS alone cannot keep a robot moving in a perfectly straight direction. 
 
 The navigation correction loop works as follows:
 
@@ -73,9 +68,8 @@ Instead of manually driving the robot during operation, the system uses predefin
 
 The operator places the robot at the correct starting position and aligns it with the required heading.
 
-Once started, the robot automatically drives toward the target coordinate while correcting its heading using compass feedback.
+Once started, the robot automatically drives toward the target coordinate while correcting its heading using compass feedback. And automatically reverse back to the starting point.
 
-This approach keeps the system simple while still allowing accurate line placement.
 
 Hardware
 
@@ -85,26 +79,17 @@ ESP 32
 
 ZED-F9P GNSS Reciever
 
+BMM150 Magnetometer
 
-This module provides high quality GNSS positioning data and is capable of centimeter-level accuracy if RTK corrections are added in the future.
-
-Magnetometer
-
-The robot uses a BMM150 3-axis magnetometer.
-
-Motor System
+Dual 800W Motor System
 
 The robot uses two 10-inch hub motors, each controlled by its own motor controller. This setup allows precise speed control and differential steering.
 
-The wheel configuration consists of two rear hub motors and one front caster wheel.
-
-This configuration is commonly used in robotics because it is mechanically simple and easy to control.
+One straight mounted castor wheel.
 
 Relay Direction Control
 
 Each motor controller includes reverse wires that enable reverse mode when shorted together.
-
-Relays are used to electronically connect these wires, allowing the robot to switch between forward and reverse operation through software control.
 
 Motor Control
 
@@ -134,7 +119,7 @@ Compass feedback continuously corrects steering while the robot is driving.
 
 GPS distance measurement determines when the target point has been reached, and the robot stops automatically.
 
-This approach avoids complicated path planning while still allowing accurate autonomous movement.
+And after it reverses back to the starting point and has to be manually flipped around.
 
 Parts List
 
@@ -150,7 +135,10 @@ BMM150 magnetometer module
 
 2 relay modules for motor reverse control
 
-DC-DC voltage converters
+48-12V Converter for the pump
+48-5V Converter with USB-C output for ESP32 power
+48V Battery with a amperage of >45A
+
 
 Wiring and connectors
 
@@ -162,7 +150,7 @@ Two motor controllers
 
 Structure
 
-Robot frame
+2 long steel beams, and 2 shorter steel beams
 Mounting brackets
 Electronics enclosure
 
@@ -171,13 +159,13 @@ Hardware
 Water-based paint pump
 Spray nozzle system
 Paint reservoir
+Optionial 3D printer in order to print an enclosure for the smaller electronics
+Optional sheet plastic to cover all the other electronics
 
 Future Improvements
 
 
 Adding RTK GPS corrections could improve positioning accuracy from a few feet to a few centimeters.
-
-Improved navigation algorithms could allow the robot to automatically correct its starting alignment.
 
 Future versions may also support custom field mapping instead of only preset coordinates.
 
@@ -187,18 +175,14 @@ Project Status
 
 The robot currently has working motor control, a functioning WiFi control interface, working GPS communication, and a compass heading system.
 
-Direction control has also been implemented.
-
-The robot is capable of driving and maintaining heading using sensor feedback.
+The only thing left to add is the pump sprayer, and the code for the actual thing to work.
 
 About the Author
 
 This project was created by Bryce Gilmartin, a 14-year-old kid.
 
-The goal of this project was to learn more about robotics, embedded systems, and navigation while building something practical from scratch.
-
 Other interests include astrophotography, telescope systems, and astronomy.
 
 License
 
-This project is open for learning and experimentation. If you reuse or publish this project, please credit this repository.
+This project is open for learning and experimentation. If you reuse or publish this project, please credit this repository or the author.
