@@ -40,6 +40,9 @@ The GPS system provides latitude, longitude, and satellite data. This allows the
 
 Using this information, the robot can determine when it has reached the end of a line.
 
+If you feel accuracy lacks then you can add a RTK station which means buying a second Zed-F9P and with having a second one it helps over come atmospheric distortion and radio frequency distruption which therefor allows more accurate starting postion of the robot.
+
+
 Compass Heading Control
 
 A magnetometer measures the robot's heading relative to Earth's magnetic field.
@@ -78,23 +81,16 @@ Hardware
 
 The robot is built using the following hardware components.
 
-Microcontroller
+ESP 32
 
-The system is controlled by an ESP32.
+ZED-F9P GNSS Reciever
 
-The ESP32 handles motor control, the web interface, GPS communication, compass heading calculations, and navigation logic.
-
-GNSS Receiver
-
-The robot uses a u-blox ZED-F9P GNSS receiver.
 
 This module provides high quality GNSS positioning data and is capable of centimeter-level accuracy if RTK corrections are added in the future.
 
 Magnetometer
 
 The robot uses a BMM150 3-axis magnetometer.
-
-This sensor measures the Earth's magnetic field and allows the robot to determine its heading.
 
 Motor System
 
@@ -110,10 +106,6 @@ Each motor controller includes reverse wires that enable reverse mode when short
 
 Relays are used to electronically connect these wires, allowing the robot to switch between forward and reverse operation through software control.
 
-Software Architecture
-
-The robot software runs on the ESP32 and is divided into several main systems.
-
 Motor Control
 
 The motor control system handles throttle signals, motor direction control, and steering adjustments.
@@ -128,7 +120,7 @@ Sensor integration combines data from the GNSS receiver and the magnetometer.
 
 Web Server
 
-The ESP32 runs a lightweight web server that provides the control interface. Users connect directly to the robot's WiFi network and control it through a browser.
+The ESP32 runs a lightweight web server that provides the control interface. Users connect directly to the robot's WiFi network and control it through a browser. Another added feature is a QR code which is below and when one connects to the robots AP then they must scan a qr code which send a request to the robot and it alows them to easily get to the website.
 
 Navigation Strategy
 
@@ -150,8 +142,9 @@ Below is a list of the major components used in this project. Links will be adde
 
 Electronics
 
-ESP32 development board https://www.amazon.com/ELEGOO-ESP-WROOM-32-Development-Bluetooth-Microcontroller/dp/B0D8T53CQ5/ref=sr_1_3?dib=eyJ2IjoiMSJ9.0mMutUw27FQh3oBplnQp1W-j79c1kFkqAhjtYy2WbRDceGeIFW8zDhzGIBDP64tt_MPF-F7llygbb1i9VdwfIIKkt5EgEM20Jfw_vuUlzLLey0sZQGBEQp_43hHyZ5bB192qxpbnWD3Fn68eelh4dzABZUXRC6oRmted5OnREE1YZqjQOT3pPFXLSTmxjttgHPVNT1Oxc8BO1wZDEpdLBv5816-crY8qR0c4LFmluS8N1K-72KhGUj0eTZGaeiriOLRC1i-SbLIitTckrje_a1Cb64lBdPrPI8xzsd1NDl4.rnB65lNcputYtCMz0BASFEZvZuFks9MasTFjgwToBBI&dib_tag=se&keywords=esp32&qid=1773080585&s=electronics&sr=1-3
-u-blox ZED-F9P GNSS receiver https://www.amazon.com/SparkFun-GPS-RTK2-Board-ZED-F9P-Qwiic/dp/B07NBPNWNZ/ref=sr_1_1?crid=3PQ58QY6EN2N5&dib=eyJ2IjoiMSJ9.z1Abcsi_nd3n9YQYycycs2fFeO5Q448aYvtKq_QBcK6yDNsyFRm1wVPd4AyVqHciaSE0upOIkhfzq2q9qx25IO3v85XEoli1vh6OwemL0FsPJIIv-Otn3Kmm8i65uCh6mVL9kqtnvBECML5GfT6Lyskq_Nd3xdJy-LU5v9F_vs8r5fYkVdHNz7n4Gcl7H77bc66CHwjMS-FGq31j3guAk_nDLxoYGMOi3WZN9paK6H7Edff7OYN07gUxBVtY8ATWmcwn3xc2sCknW0dq1KrX5mlkDafgKaQ0BO9YmcSUqNY.5fE7pLzpEsekCYnvj1zfPcVGTAgMYuL2jXAiPC5qcGk&dib_tag=se&keywords=Zed+f9p&qid=1773080674&sprefix=zed+f9p%2Caps%2C168&sr=8-1
+ESP32 development board 
+
+u-blox ZED-F9P GNSS receiver 
 
 BMM150 magnetometer module
 
