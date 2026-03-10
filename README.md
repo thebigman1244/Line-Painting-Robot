@@ -89,7 +89,7 @@ One straight mounted castor wheel.
 
 Relay Direction Control
 
-Each motor controller includes reverse wires that enable reverse mode when shorted together.
+The relays are need because each motor controller includes reverse wires that enable reverse mode when shorted together and relays can allow exact control of when to reverse.
 
 Motor Control
 
@@ -123,13 +123,13 @@ And after it reverses back to the starting point and has to be manually flipped 
 
 Parts List
 
-Below is a list of the major components used in this project. Links will be added later.
+Below is a list of the major components used in this project.
 
 Electronics
 
-ESP32 development board (the one I used is the Acebott v1 max 1.0 its more expensive but a lot better then a standard one)
+ESP32 development board (the one I used is the Acebott v1 max 1.0 its slightly more expensive but a lot better then a standard one)
 
-u-blox ZED-F9P GNSS receiver 
+u-blox ZED-F9P GNSS receiver (optional second one for to attach a base station, I can send updated code if you reach out to me)
 
 BMM150 magnetometer module
 
@@ -156,9 +156,9 @@ Electronics enclosure preferably 3d printed
 
 Hardware
 
-Water-based paint pump
-Spray nozzle system
-Paint reservoir
+Water-based paint pump (at least 1/2 GPM flow rate)
+Spray nozzle system (get a agriculture spray nozzle and attach it to tubing and attach to the pump).
+Paint reservoir (just a bucket preferably >3 gallons)
 Optionial 3D printer in order to print an enclosure for the smaller electronics
 Optional sheet plastic to cover all the other electronics
 
@@ -176,6 +176,10 @@ Project Status
 The robot currently has working motor control, a functioning WiFi control interface, working GPS communication, and a compass heading system.
 
 The only thing left to add is the pump sprayer, and the code for the actual thing to work.
+
+As I make more improvments to make this more efficent I will update the code and add fixes if any errors occur. 
+
+Incase errors occur you can also reach out to sweatboyfnp@gmail.com and I will help you.
 
 About the Author
 
