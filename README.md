@@ -105,7 +105,7 @@ Sensor integration combines data from the GNSS receiver and the magnetometer.
 
 Web Server
 
-The ESP32 runs a lightweight web server that provides the control interface. Users connect directly to the robot's WiFi network and control it through a browser. Another added feature is a QR code which is below and when one connects to the robots AP then they must scan a qr code which send a request to the robot and it alows them to easily get to the website.
+The ESP32 runs a lightweight web server that provides the control interface. Users connect directly to the robot's WiFi network and control it through a browser. Another added feature is a QR code which is below and when one connects to the robots AP then they must scan a qr code which send a request to the robot and it allows them to easily get to the website.
 
 Navigation Strategy
 
@@ -127,7 +127,7 @@ Below is a list of the major components used in this project. Links will be adde
 
 Electronics
 
-ESP32 development board 
+ESP32 development board (the one I used is the Acebott v1 max 1.0 its more expensive but a lot better then a standard one)
 
 u-blox ZED-F9P GNSS receiver 
 
@@ -152,7 +152,7 @@ Structure
 
 2 long steel beams, and 2 shorter steel beams
 Mounting brackets
-Electronics enclosure
+Electronics enclosure preferably 3d printed
 
 Hardware
 
