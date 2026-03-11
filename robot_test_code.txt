@@ -1,0 +1,308 @@
+#include <TinyGPSPlus.h>
+#include <Wire.h>
+#include <DFRobot_BMM150.h>
+
+// GPS
+TinyGPSPlus gps;
+HardwareSerial GPSSerial(1);
+
+// Compass
+DFRobot_BMM150_I2C compass(&Wire,0x13);
+
+// Pins
+#define LEFT_PWM 26
+#define RIGHT_PWM 27
+
+#define LEFT_RELAY 32
+#define RIGHT_RELAY 33
+
+#define PUMP_RELAY 25
+
+#define GPS_RX 16
+#define GPS_TX 17
+
+#define SDA_PIN 18
+#define SCL_PIN 19
+
+// Coordinates (TEST)
+double startLat = 37.451951;
+double startLon = -122.176404;
+
+double endLat = 37.452225;
+double endLon = -122.176135;
+
+// Robot state
+enum State {
+
+WAIT_GPS,
+RUN_FORWARD,
+RUN_REVERSE,
+STOPPED
+
+};
+
+State state = WAIT_GPS;
+
+// Position
+double curLat;
+double curLon;
+
+// Heading
+float headingDeg;
+
+// Control
+float basePWM = 140;
+float steerGain = 2.0;
+
+float arrivalRadius = 1.5;
+
+// ---------- MOTOR CONTROL ----------
+
+void setForward() {
+
+digitalWrite(LEFT_RELAY,HIGH);
+digitalWrite(RIGHT_RELAY,LOW);
+
+}
+
+void setReverse() {
+
+digitalWrite(LEFT_RELAY,LOW);
+digitalWrite(RIGHT_RELAY,HIGH);
+
+}
+
+void setThrottle(float left,float right) {
+
+left = constrain(left,0,255);
+right = constrain(right,0,255);
+
+ledcWrite(0,left);
+ledcWrite(1,right);
+
+}
+
+void stopMotors() {
+
+setThrottle(0,0);
+
+}
+
+// ---------- COMPASS ----------
+
+float getHeading() {
+
+sBmm150MagData_t mag = compass.getGeomagneticData();
+
+float heading = atan2(mag.y,mag.x) * 180 / PI;
+
+if(heading < 0) heading += 360;
+
+return heading;
+
+}
+
+// ---------- GPS ----------
+
+void readGPS() {
+
+while(GPSSerial.available()) {
+
+gps.encode(GPSSerial.read());
+
+}
+
+if(gps.location.isValid()) {
+
+curLat = gps.location.lat();
+curLon = gps.location.lng();
+
+}
+
+}
+
+// ---------- NAVIGATION ----------
+
+float distanceTo(double lat,double lon) {
+
+return TinyGPSPlus::distanceBetween(
+
+curLat,
+curLon,
+lat,
+lon
+
+);
+
+}
+
+float bearingTo(double lat,double lon) {
+
+return TinyGPSPlus::courseTo(
+
+curLat,
+curLon,
+lat,
+lon
+
+);
+
+}
+
+void navigate(double targetLat,double targetLon,bool reverse) {
+
+float targetBearing = bearingTo(targetLat,targetLon);
+
+float error = targetBearing - headingDeg;
+
+while(error > 180) error -= 360;
+while(error < -180) error += 360;
+
+float steer = error * steerGain;
+
+float left = basePWM - steer;
+float right = basePWM + steer;
+
+if(reverse) {
+
+setReverse();
+
+float temp = left;
+left = right;
+right = temp;
+
+} else {
+
+setForward();
+
+}
+
+setThrottle(left,right);
+
+}
+
+// ---------- SETUP ----------
+
+void setup() {
+
+Serial.begin(115200);
+
+// Compass
+Wire.begin(SDA_PIN,SCL_PIN);
+
+while(compass.begin()) {
+
+Serial.println("Compass error");
+delay(1000);
+
+}
+
+// GPS
+GPSSerial.begin(38400,SERIAL_8N1,GPS_RX,GPS_TX);
+
+// Pins
+pinMode(LEFT_RELAY,OUTPUT);
+pinMode(RIGHT_RELAY,OUTPUT);
+
+pinMode(PUMP_RELAY,OUTPUT);
+
+// PWM
+ledcSetup(0,1000,8);
+ledcSetup(1,1000,8);
+
+ledcAttachPin(LEFT_PWM,0);
+ledcAttachPin(RIGHT_PWM,1);
+
+digitalWrite(PUMP_RELAY,LOW);
+
+Serial.println("Robot ready");
+
+}
+
+// ---------- MAIN LOOP ----------
+
+void loop() {
+
+readGPS();
+
+headingDeg = getHeading();
+
+if(!gps.location.isValid()) {
+
+Serial.println("Waiting for GPS...");
+delay(1000);
+return;
+
+}
+
+// ---------- FORWARD RUN ----------
+
+if(state == WAIT_GPS) {
+
+Serial.println("Starting mission");
+
+state = RUN_FORWARD;
+
+}
+
+// ---------- DRIVE TO END ----------
+
+if(state == RUN_FORWARD) {
+
+navigate(endLat,endLon,false);
+
+digitalWrite(PUMP_RELAY,HIGH);
+
+float dist = distanceTo(endLat,endLon);
+
+Serial.print("Forward distance: ");
+Serial.println(dist);
+
+if(dist < arrivalRadius) {
+
+stopMotors();
+
+delay(2000);
+
+state = RUN_REVERSE;
+
+}
+
+}
+
+// ---------- REVERSE ----------
+
+else if(state == RUN_REVERSE) {
+
+navigate(startLat,startLon,true);
+
+digitalWrite(PUMP_RELAY,LOW);
+
+float dist = distanceTo(startLat,startLon);
+
+Serial.print("Reverse distance: ");
+Serial.println(dist);
+
+if(dist < arrivalRadius) {
+
+stopMotors();
+
+state = STOPPED;
+
+}
+
+}
+
+// ---------- STOP ----------
+
+else if(state == STOPPED) {
+
+stopMotors();
+
+Serial.println("Mission complete");
+
+while(true);
+
+}
+
+}
