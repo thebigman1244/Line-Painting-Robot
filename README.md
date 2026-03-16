@@ -183,12 +183,6 @@ As I make more improvments to make this more efficent I will update the code and
 
 Incase errors occur you can also reach out to sweatboyfnp@gmail.com and I will help you.
 
-About the Author
-
-This project was created by Bryce Gilmartin, a 14-year-old kid.
-
-Other interests include astrophotography, telescope systems, and astronomy.
-
 License
 
 This project is open for learning and experimentation. If you reuse or publish this project, please credit this repository or the author.
